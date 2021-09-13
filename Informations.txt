@@ -1,0 +1,91 @@
+﻿1-) Outh 2.0 protocol
+
+- Uygulamalar arası veri tranferinde kullanılan bir yetkilendirme protokolüdür. OAuth2 desteği ile geliştirilen bir uygulama ile yetkilendirilen kullanıcı
+ilgili protokol sayesinde başka bir uygulamanın veri kaynaklarına erişebilir. Bu duruma genellikle Facebook,Google login gibi sosyal medya login işlemleri örnek olarak
+gösterilir. Buradaki mantık, OAuth2 protokolünü kullanan sosyal medyalar üzerinden yapılan giriş neticesinde yine OAuth2 protokolünü kullanan ve bu protokolü kullanan uygulamalara
+güvenen clienta bir JWT verilmekte ve ilgili client tarafından bu token doğrulanabilmektedir.
+
+- OAuth2 protokolü sadece yetkilendirme için kullanılan bir protokoldür.
+
+2-) OpenID Connect 
+
+- Bir protokolden ziyade OAuth2 üzerinde kimlik doğrulama işlemlerini üstlenen bir katmandır. Api dostu bir yapı sağlamakta ve işlemleri basit tutarak JWT kullanımını kolaylaştırmaktadır.
+
+- OpenID Connect, kullanıcı ile ilgili işlemlerden sorumluyken, OAuth 2.0 ise yetkilendirme işlemlerinden sorumludur. Dolayısıyla OAuth 2.0 ile OpenID Connect birbirlerini tamamlayan iki protokoldür.
+
+
+3-) Client Credentials
+
+- Machine to machine yetkilendirme dediğimiz iki uygulama arasındaki iletişimin sağlanabilmesi için kullanılan akış türüdür.Kullanıcı kimlik doğrulamasından ziyade 
+sadece clientın doğrulanması durumunu içerir.
+
+-)Api Resource
+
+- Auth Server uygulamsının sorumlu olduğu resource'leri yani API leri ifade eder.
+
+-)Api Scope
+
+- Üretilecek token değerinin API üzerinde yetki alanını ifade eder.Auth Service üzerinden elde ettiği token'da hangi scope değerlerine sahip ise ancak o scope değerlerine sahip olan API'lara istekte bulunabilir.
+
+-) Simetrik Şifreleme
+
+- Şifrelenecek olan bilgiyi deşifre edebilmek için gizli anahtar kullanan ve kriptografi teknikleri içerisinde bilinen en eski lakin bir o kadar da basit bir şifreleme türüdür. 
+ Şifrelenen veri gönderen ve alıcı tarafında bulunması gereken gizli anahtar değer aracılığıyla çözülebilmektedir. 
+ Hızlı ve efektif bir işlem süresinin olmasından dolayı avantajlıdır. 
+ JWT değeri imzalanırken kullanılan değerin aynı zamanda doğrulamak için kullanılması durumudur.
+
+-) Asimetrik Şifreleme
+
+- Şifre ve deşifre mantığını kullanan bir şifreleme yöntemidir. 
+  Haberleşen taraflardan her birinde, birbiriyle matematiksel bağı olan ve biri gizli(private-secret) ve bir diğeri açık(public) olan birer anahtar bulunmaktadır. ,
+  Bu anahtarlardan herhangi biriyle şifreleme yapılırken, diğeriyle şifre çözme işlemi gerçekleştirilmektedir. 
+  Gizli anahtar haberleşen taraflardan sadece birinde bulunmaktadır ve diğer taraftaki açık anahtar ile doğrulanır. 
+  Böylece şifre çözülmüş olur. Açık anahtar herkes tarafından erişilebilirdir, dolayısıyla içeriği çok rahat incelenebilir. 
+  Bu durum bir tehlike arz etmemekte, mühim olan gizli anahtarın deşifre edilemez olması güvenceyi sağlamaktadır. 
+  Yani anlayacağınız bilgiler sadece gizli anahtarın sahibi tarafından çözülebilecek şekilde şifrelenmektedir.
+
+  Asitmetrik Şifreleme, kapı(public key) ve kilit(private key) modeline uygun bir tasarıma sahiptir.
+
+- Uygulama çalışıp ayağa kalktığı anda root dizinde "tempkey.jwk" dosyası oluşturulmaktadır.Bu dosyanın korunmaya ihtiyacı yoktur.
+Silindiği taktirde yeniden oluşturulur. İşlevi ‘AddDeveloperSigningCredential’ metodunun oluşturacağı keyleri tutmaktadır.
+
+4-)Discovery Endpoint
+
+ - Kullanılan IdentityServer4 mimarisinin özelliklerini keşfedebilmek için
+  /.well-known/openid-configuration endpoint’ine istek gönderilmesi yeterlidir. Bu endpoint, Dicovery Endpoint’e karşılık gelmektedir.
+
+5-) Introspection Endpoint 
+ 
+ - Client tarafında bulunan token değerinin hedef API için uygun olduğunu doğrulamak için kullanılan endpoint çeşididir. 
+   Buradaki doğrulama esasında kimlik doğrulamasının ta kendisidir. /connect/introspect adresinden ilgili endpoint tetiklenebilir.
+
+6-) Identity Model
+
+- İçerisinde identity server uygulamasına ulaşabileceğimiz hazır endpointleri barındıran HttpClient sınıfına yazılmış bir extension pakettir.
+
+7-) Resource Owner Credentials Grant(Flow)
+
+- Resource Owner Credentials Grant’ta bir client, kullanıcıyı direkt olarak yönlendirme yapmaksızın Auth Server üzerinden yetkilendirilir.
+  Kullanıcı adı ve şifresini token endpoint’e göndererek bir access token talep etmeye izin verir.
+  Bu akış, kullanıcı ile müşteri arasında bir güven ilişkisi olduğu durumlarda uygundur.
+
+-) IdentityResources
+
+ -Client’lar giriş yapan kullanıcıların farklı bilgilerini isteyebilmektedirler.
+  Bu bilgileri alabilmeleri için ‘IdentityResource’ tanımlanmalıdır.
+  Bu ‘IdentityResource’ler client’lara verilerek hangi bilgileri alabilecekleri bildirilebilmektedir.
+  Örneğin; ‘client1’e email ile ilgili identity resource verilirse client tarafından ilgili kullanıcının sadece email bilgisi alınmış olacaktır.
+  Benzer mantıkla ‘client2’ye email ve username ile ilgili identity resource verilirse bu seferde adı geçen kullanıcının ilgili bilgileri alınmış olacaktır.
+
+8-) BankAuthUI ve OnlineBankUI birbiriyle haberleşen uygulamalar. İkisi .net core mvc uygulaması. İkisindede OpenIdConnect package yüklü durumda.
+    Çünkü authentication işlemi bu paket sayesinde gerçekleştiriliyor. OnlineBankUI projesinde Home altındaki Payment actionu authorize attr ile
+    dışarıya kapalı durumda. OnlineBankUI uygulaması cookie-based authentication scheması ile çalışıyor. Ve authenticate olmayan bir user olur ise
+    BankAuthUI projesine redirect ediyor. Daha sonra orda login olan user tekrar bizim uygulamamıza dönerek login olmuş halde istediği actionu açabiliyor.
+
+9-)Authentication Properties
+
+ - ‘Access Token’, ‘ID Token’ ve ‘Refresh Token’ olmak üzere temelde üç tanedirler; Bu değerlere erişebilmek için belirli configurasyonların tanımlanması gereklidir.
+    Default olarak token içinde bulunmaz.
+
+ - Id Token: Esas amacı, access token’ın Auth Server tarafından üretilmiş bir token olup olmadığını doğrulamaktır.
+             Identity Server tarafından private key ile imzalanan id token client tarafından elde edilen public key ile doğrulanmakta ve böylece Auth Server tarafından ilgili access token doğrulanmış olmaktadır.
