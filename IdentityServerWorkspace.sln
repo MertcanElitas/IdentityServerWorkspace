@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ResourceOwnerCredential", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "ResourceOwnerCredential\AuthServer\AuthServer.csproj", "{A1EA497F-8238-459D-AD34-6DD70BE3882E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAuthUI", "ClientCredantial\BankAuthUI\BankAuthUI.csproj", "{BE608BB2-629C-4B9E-9F37-4C1660BF2F49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAuthUI", "ClientCredantial\BankAuthUI\BankAuthUI.csproj", "{BE608BB2-629C-4B9E-9F37-4C1660BF2F49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBankUI", "ClientCredantial\OnlineBankUI\OnlineBankUI.csproj", "{10ECEFEE-5CA9-4659-83CD-A35E41CB4023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineBankUI", "ClientCredantial\OnlineBankUI\OnlineBankUI.csproj", "{10ECEFEE-5CA9-4659-83CD-A35E41CB4023}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
